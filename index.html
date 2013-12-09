@@ -11,6 +11,7 @@
       tick : {},
       next : 'workout',
       currentworkout: {},
+      workoutnumber : 0,
       time: {
         started : false,
         ended: false,
@@ -55,6 +56,9 @@
         lines = [];
         for (i in app.workouts) {
           lines.push('<li>' + app.workouts[i][0] +'</li>');
+          if (app.workouts[i][2]) {
+            app.workoutnumber++;
+          }
         }
         lines.reverse();
         document.getElementById('listworkouts').innerHTML = lines.join('');
@@ -87,6 +91,7 @@
             document.getElementById('workout').innerHTML = '';
             document.getElementById('workoutPrefix').innerHTML = '';
             document.getElementById('time').innerHTML = '';
+            document.getElementById('exLeft').innerHTML = '';
 
             app.sounds.complete.play();
 
@@ -104,6 +109,8 @@
             document.getElementById('workout').innerHTML = app.currentworkout[0];
             document.getElementsByTagName('body')[0].setAttribute('class', 'pause');
             document.getElementById('time').innerHTML = 'begynd om <span id="timeholder"></span> sekunder';
+            document.getElementById('exLeft').innerHTML = app.workoutnumber + ' øvelser tilbage';
+            app.workoutnumber--;
 
             if (app.time.started) {
 
@@ -185,8 +192,8 @@
 
 
     }
-    h1, h2,h3,h4,ul {
-      margin:0;
+    h1, h2,h3,h4,h5,ul {
+      margin:10px;
       text-shadow: 3px 3px 3px #000;
       position: relative;
       z-index: 4;
@@ -271,6 +278,7 @@
   <h3 id="workoutPrefix"></h3>
   <h1 id="workout"></h1>
   <h4 id="time"></h4>
+  <h5 id="exLeft"></h5>
 
   <div id="logo"> </div>
 
